@@ -29,182 +29,186 @@ import ro.tuc.dsrl.m2o.examples.wine.entities.WineGrape;
 import ro.tuc.dsrl.m2o.examples.wine.entities.WineSugar;
 import ro.tuc.dsrl.m2o.examples.wine.entities.Winery;
 
+/**
+ * @Author: Technical University of Cluj-Napoca, Romania Distributed Systems
+ * Research Laboratory, http://dsrl.coned.utcluj.ro/
+ */
 public class TestWineOntologyOWLAPI {
 
-	private final static String NAMESPACE = "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#";
+    private final static String NAMESPACE = "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#";
 
-	private TestWineOntologyOWLAPI() {
-	}
+    private TestWineOntologyOWLAPI() {
+    }
 
-	private static void createWineIndividual(OwlAPIUtility instance) {
-		Wine wine = new Wine(1L);
-		WineGrape wineGrape = new WineGrape(1L);
-		WineColor wineColor = new WineColor(1L);
-		WineBody wineBody = new WineBody(1L);
-		WineFlavor wineFlavor = new WineFlavor(1L);
-		WineSugar wineSugar = new WineSugar(1L);
-		Winery maker = new Winery(1L);
-		Region region = new Region(1L);
+    private static void createWineIndividual(OwlAPIUtility instance) {
+        Wine wine = new Wine(1L);
+        WineGrape wineGrape = new WineGrape(1L);
+        WineColor wineColor = new WineColor(1L);
+        WineBody wineBody = new WineBody(1L);
+        WineFlavor wineFlavor = new WineFlavor(1L);
+        WineSugar wineSugar = new WineSugar(1L);
+        Winery maker = new Winery(1L);
+        Region region = new Region(1L);
 
-		wine.setWineGrape(wineGrape);
-		wine.setColor(wineColor);
-		wine.setBody(wineBody);
-		wine.setFlavor(wineFlavor);
-		wine.setSugar(wineSugar);
-		wine.setMaker(maker);
-		wine.setLocation(region);
+        wine.setWineGrape(wineGrape);
+        wine.setColor(wineColor);
+        wine.setBody(wineBody);
+        wine.setFlavor(wineFlavor);
+        wine.setSugar(wineSugar);
+        wine.setMaker(maker);
+        wine.setLocation(region);
 
-		OWLDataFactory factory = instance.getFactory();
-		OWLOntologyManager manager = instance.getManager();
-		OWLOntology ontology = instance.getOntology();
+        OWLDataFactory factory = instance.getFactory();
+        OWLOntologyManager manager = instance.getManager();
+        OWLOntology ontology = instance.getOntology();
 
-		// create an individual of type Wine
+        // create an individual of type Wine
 
-		OWLClass wineClass = factory.getOWLClass(IRI.create(NAMESPACE + "Wine"));
-		OWLNamedIndividual wineIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Wine" + "_"
-				+ wine.getName()));
-		OWLClassAssertionAxiom classAssertion = factory.getOWLClassAssertionAxiom(wineClass, wineIndividual);
-		manager.addAxiom(ontology, classAssertion);
-		OWLDataProperty hasId = factory.getOWLDataProperty(IRI.create(NAMESPACE + "hasId"));
-		OWLDataPropertyAssertionAxiom hasIdAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(hasId,
-				wineIndividual, wine.getName());
-		manager.addAxiom(ontology, hasIdAssertionAxiom);
+        OWLClass wineClass = factory.getOWLClass(IRI.create(NAMESPACE + "Wine"));
+        OWLNamedIndividual wineIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Wine" + "_"
+                + wine.getName()));
+        OWLClassAssertionAxiom classAssertion = factory.getOWLClassAssertionAxiom(wineClass, wineIndividual);
+        manager.addAxiom(ontology, classAssertion);
+        OWLDataProperty hasId = factory.getOWLDataProperty(IRI.create(NAMESPACE + "hasId"));
+        OWLDataPropertyAssertionAxiom hasIdAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(hasId,
+                wineIndividual, wine.getName());
+        manager.addAxiom(ontology, hasIdAssertionAxiom);
 
-		// associate the Wine individual with a WineGrape individual
+        // associate the Wine individual with a WineGrape individual
 
-		OWLObjectProperty madeFromGrape = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "madeFromGrape"));
-		OWLNamedIndividual wineGrapeIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineGrape" + "_"
-				+ wine.getWineGrape().getId()));
-		OWLObjectPropertyAssertionAxiom madeFromGrapeAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(
-				madeFromGrape, wineIndividual, wineGrapeIndividual);
-		manager.addAxiom(ontology, madeFromGrapeAssertionAxiom);
+        OWLObjectProperty madeFromGrape = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "madeFromGrape"));
+        OWLNamedIndividual wineGrapeIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineGrape" + "_"
+                + wine.getWineGrape().getId()));
+        OWLObjectPropertyAssertionAxiom madeFromGrapeAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(
+                madeFromGrape, wineIndividual, wineGrapeIndividual);
+        manager.addAxiom(ontology, madeFromGrapeAssertionAxiom);
 
-		// associate the Wine individual with a WineColor individual
+        // associate the Wine individual with a WineColor individual
 
-		OWLObjectProperty hasColor = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasColor"));
-		OWLNamedIndividual wineColorIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineColor" + "_"
-				+ wine.getColor().getId()));
-		OWLObjectPropertyAssertionAxiom hasColorAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasColor,
-				wineIndividual, wineColorIndividual);
-		manager.addAxiom(ontology, hasColorAssertionAxiom);
+        OWLObjectProperty hasColor = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasColor"));
+        OWLNamedIndividual wineColorIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineColor" + "_"
+                + wine.getColor().getId()));
+        OWLObjectPropertyAssertionAxiom hasColorAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasColor,
+                wineIndividual, wineColorIndividual);
+        manager.addAxiom(ontology, hasColorAssertionAxiom);
 
-		// associate the Wine individual with a WineBody individual
+        // associate the Wine individual with a WineBody individual
 
-		OWLObjectProperty hasBody = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasBody"));
-		OWLNamedIndividual wineBodyIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineBody" + "_"
-				+ wine.getBody().getId()));
-		OWLObjectPropertyAssertionAxiom hasBodyAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasBody,
-				wineIndividual, wineBodyIndividual);
-		manager.addAxiom(ontology, hasBodyAssertionAxiom);
+        OWLObjectProperty hasBody = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasBody"));
+        OWLNamedIndividual wineBodyIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineBody" + "_"
+                + wine.getBody().getId()));
+        OWLObjectPropertyAssertionAxiom hasBodyAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasBody,
+                wineIndividual, wineBodyIndividual);
+        manager.addAxiom(ontology, hasBodyAssertionAxiom);
 
-		// associate the Wine individual with a WineFlavor individual
+        // associate the Wine individual with a WineFlavor individual
 
-		OWLObjectProperty hasFlavor = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasFlavor"));
-		OWLNamedIndividual wineFlavorIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineFlavor"
-				+ "_" + wine.getFlavor().getId()));
-		OWLObjectPropertyAssertionAxiom hasFlavorAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasFlavor,
-				wineIndividual, wineFlavorIndividual);
-		manager.addAxiom(ontology, hasFlavorAssertionAxiom);
+        OWLObjectProperty hasFlavor = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasFlavor"));
+        OWLNamedIndividual wineFlavorIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineFlavor"
+                + "_" + wine.getFlavor().getId()));
+        OWLObjectPropertyAssertionAxiom hasFlavorAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasFlavor,
+                wineIndividual, wineFlavorIndividual);
+        manager.addAxiom(ontology, hasFlavorAssertionAxiom);
 
-		// associate the Wine individual with a WineSugar individual
+        // associate the Wine individual with a WineSugar individual
 
-		OWLObjectProperty hasSugar = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasSugar"));
-		OWLNamedIndividual wineSugarIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineSugar" + "_"
-				+ wine.getSugar().getId()));
-		OWLObjectPropertyAssertionAxiom hasSugarAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasSugar,
-				wineIndividual, wineSugarIndividual);
-		manager.addAxiom(ontology, hasSugarAssertionAxiom);
+        OWLObjectProperty hasSugar = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasSugar"));
+        OWLNamedIndividual wineSugarIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "WineSugar" + "_"
+                + wine.getSugar().getId()));
+        OWLObjectPropertyAssertionAxiom hasSugarAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasSugar,
+                wineIndividual, wineSugarIndividual);
+        manager.addAxiom(ontology, hasSugarAssertionAxiom);
 
-		// associate the Wine individual with a Winery individual
+        // associate the Wine individual with a Winery individual
 
-		OWLObjectProperty hasMaker = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasMaker"));
-		OWLNamedIndividual wineryIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Winery" + "_"
-				+ wine.getMaker().getId()));
-		OWLObjectPropertyAssertionAxiom hasMakerAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasMaker,
-				wineIndividual, wineryIndividual);
-		manager.addAxiom(ontology, hasMakerAssertionAxiom);
+        OWLObjectProperty hasMaker = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "hasMaker"));
+        OWLNamedIndividual wineryIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Winery" + "_"
+                + wine.getMaker().getId()));
+        OWLObjectPropertyAssertionAxiom hasMakerAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(hasMaker,
+                wineIndividual, wineryIndividual);
+        manager.addAxiom(ontology, hasMakerAssertionAxiom);
 
-		// associate the Wine individual with a Region individual
+        // associate the Wine individual with a Region individual
 
-		OWLObjectProperty locatedIn = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "locatedIn"));
-		OWLNamedIndividual regionIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Region" + "_"
-				+ wine.getLocation().getId()));
-		OWLObjectPropertyAssertionAxiom locatedInAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(locatedIn,
-				wineIndividual, regionIndividual);
-		manager.addAxiom(ontology, locatedInAssertionAxiom);
-	}
+        OWLObjectProperty locatedIn = factory.getOWLObjectProperty(IRI.create(NAMESPACE + "locatedIn"));
+        OWLNamedIndividual regionIndividual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Region" + "_"
+                + wine.getLocation().getId()));
+        OWLObjectPropertyAssertionAxiom locatedInAssertionAxiom = factory.getOWLObjectPropertyAssertionAxiom(locatedIn,
+                wineIndividual, regionIndividual);
+        manager.addAxiom(ontology, locatedInAssertionAxiom);
+    }
 
-	private static Wine getWineIndividual(OwlAPIUtility instance, long id) {
+    private static Wine getWineIndividual(OwlAPIUtility instance, long id) {
 
-		OWLDataFactory factory = instance.getFactory();
-		OWLOntologyManager manager = instance.getManager();
-		OWLOntology ontology = instance.getOntology();
+        OWLDataFactory factory = instance.getFactory();
+        OWLOntologyManager manager = instance.getManager();
+        OWLOntology ontology = instance.getOntology();
 
-		Wine wine = new Wine();
+        Wine wine = new Wine();
 
-		wine.setName(id);
+        wine.setName(id);
 
-		OWLNamedIndividual individual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Wine" + "_"
-				+ wine.getName()));
+        OWLNamedIndividual individual = factory.getOWLNamedIndividual(IRI.create(NAMESPACE + "Wine" + "_"
+                + wine.getName()));
 
-		// OWLDataProperty hasId =
-		// factory.getOWLDataProperty(IRI.create(NAMESPACE + "hasId"))
+        // OWLDataProperty hasId =
+        // factory.getOWLDataProperty(IRI.create(NAMESPACE + "hasId"))
 
-		// Get the WineGrape
+        // Get the WineGrape
 
-		// OWLObjectProperty madeFromGrape =
-		// factory.getOWLObjectProperty(IRI.create(NAMESPACE + "madeFromGrape"))
+        // OWLObjectProperty madeFromGrape =
+        // factory.getOWLObjectProperty(IRI.create(NAMESPACE + "madeFromGrape"))
 
-		Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectPropertyValues = individual
-				.getObjectPropertyValues(ontology);
+        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectPropertyValues = individual
+                .getObjectPropertyValues(ontology);
 
-		for (OWLObjectPropertyExpression opv : objectPropertyValues.keySet()) {
+        for (OWLObjectPropertyExpression opv : objectPropertyValues.keySet()) {
 
-			Set<OWLIndividual> newIndiv = objectPropertyValues.get(opv);
-			String propName = opv.asOWLObjectProperty().getIRI().getFragment();
+            Set<OWLIndividual> newIndiv = objectPropertyValues.get(opv);
+            String propName = opv.asOWLObjectProperty().getIRI().getFragment();
 
-			Long objectId = null;
+            Long objectId = null;
 
-			for (OWLIndividual owlIndividual : newIndiv) {
+            for (OWLIndividual owlIndividual : newIndiv) {
 
-				Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataPropertyValues = owlIndividual
-						.getDataPropertyValues(ontology);
+                Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataPropertyValues = owlIndividual
+                        .getDataPropertyValues(ontology);
 
-				for (OWLDataPropertyExpression dpv : dataPropertyValues.keySet()) {
+                for (OWLDataPropertyExpression dpv : dataPropertyValues.keySet()) {
 
-					Set<OWLLiteral> literalSet = dataPropertyValues.get(dpv);
+                    Set<OWLLiteral> literalSet = dataPropertyValues.get(dpv);
 
-					for (OWLLiteral literal : literalSet) {
-						objectId = Long.parseLong(literal.getLiteral());
-					}
+                    for (OWLLiteral literal : literalSet) {
+                        objectId = Long.parseLong(literal.getLiteral());
+                    }
 
-				}
-			}
+                }
+            }
 
-			if (propName.equals("hasSugar")) {
-				WineSugar sugar = new WineSugar(id);
-				wine.setSugar(sugar);
-			} else if (propName.equals("madeFromGrape")) {
-				WineGrape wineGrape = new WineGrape(id);
-				wine.setWineGrape(wineGrape);
-			} // the same for the other cases
-		}
+            if (propName.equals("hasSugar")) {
+                WineSugar sugar = new WineSugar(id);
+                wine.setSugar(sugar);
+            } else if (propName.equals("madeFromGrape")) {
+                WineGrape wineGrape = new WineGrape(id);
+                wine.setWineGrape(wineGrape);
+            } // the same for the other cases
+        }
 
-		return wine;
-	}
+        return wine;
+    }
 
-	public static void main(String[] args) {
-		OwlAPIUtility instance = OwlAPIUtility.getInstance();
+    public static void main(String[] args) {
+        OwlAPIUtility instance = OwlAPIUtility.getInstance();
 
-		// CREATE
+        // CREATE
 
-		TestWineOntologyOWLAPI.createWineIndividual(instance);
+        TestWineOntologyOWLAPI.createWineIndividual(instance);
 
-		// FIND BY ID
+        // FIND BY ID
 
-		TestWineOntologyOWLAPI.getWineIndividual(instance, 1L);
+        TestWineOntologyOWLAPI.getWineIndividual(instance, 1L);
 
-		// instance.saveSnapshot(new Date
-	}
+        // instance.saveSnapshot(new Date
+    }
 
 }

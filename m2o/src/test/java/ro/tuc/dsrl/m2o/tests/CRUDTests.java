@@ -1,5 +1,6 @@
 package ro.tuc.dsrl.m2o.tests;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 
@@ -7,6 +8,7 @@ import ro.tuc.dsrl.m2o.examples.school.entities.Student;
 import ro.tuc.dsrl.m2o.examples.school.repos.StudentRepository;
 import ro.tuc.dsrl.m2o.examples.school.entities.Subject;
 import ro.tuc.dsrl.m2o.examples.school.repos.SubjectRepository;
+import ro.tuc.dsrl.m2o.utility.PropertiesLoader;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class CRUDTests {
+    @BeforeClass
+    public static void setup(){
+        PropertiesLoader.setConfigFile("/src/test/resources/test-owl-config.config");
+    }
 
     @Test
     public void crudSubject(){

@@ -39,369 +39,335 @@ import ro.tuc.dsrl.m2o.ontology.utility.OwlAPIUtility;
 import ro.tuc.dsrl.m2o.parser.EntityReflectionParser;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
 
+/**
+ * @Author: Technical University of Cluj-Napoca, Romania Distributed Systems
+ * Research Laboratory, http://dsrl.coned.utcluj.ro/
+ */
 public class OwlAPIAccessManager implements OntologyAccessManager {
-	
-	private static final String LIST_INTERFACE = "interface java.util.List";
-	private static final Log LOGGER = LogFactory.getLog(OwlAPIAccessManager.class);
-	private OwlAPIUtility owlUtility;
 
-	private static volatile OwlAPIAccessManager instance;
+    private static final String LIST_INTERFACE = "interface java.util.List";
+    private static final Log LOGGER = LogFactory.getLog(OwlAPIAccessManager.class);
+    private OwlAPIUtility owlUtility;
 
-	public OwlAPIAccessManager() {
-		owlUtility = (OwlAPIUtility) OntologyUtilityFactory.getInstance();
-	}
+    private static volatile OwlAPIAccessManager instance;
 
-	static OwlAPIAccessManager getInstance() {
-		if (instance == null) {
-			synchronized (OwlAPIAccessManager.class) {
-				if (instance == null) {
-					instance = new OwlAPIAccessManager();
-				}
-			}
-		}
-		return instance;
-	}
+    public OwlAPIAccessManager() {
+        owlUtility = (OwlAPIUtility) OntologyUtilityFactory.getInstance();
+    }
 
-	/**
-	 * @param cls
-	 * @return
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 */
-	@Override
-	public <T> List<T> getIndividuals(Class<T> cls) {
-		Set<OWLNamedIndividual> namedIndividuals = owlUtility.getDlQueryEngine()
-				.getInstances(cls.getSimpleName(), true);
-		Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
-		Iterator<OWLNamedIndividual> it = namedIndividuals.iterator();
-		while (it.hasNext()) {
-			individuals.add(it.next());
-		}
-		List<T> objects = new ArrayList<T>();
-
-		try {
-			getIndividualsRecursive(cls, individuals, objects);
-		} catch (InstantiationException e) {
-			LOGGER.error("", e);
-		} catch (IllegalAccessException e) {
-			LOGGER.error("", e);
-		} catch (ClassNotFoundException e) {
-			LOGGER.error("", e);
-		} catch (ParseException e) {
-			LOGGER.error("", e);
-		}
-		return objects;
-	}
+    static OwlAPIAccessManager getInstance() {
+        if (instance == null) {
+            synchronized (OwlAPIAccessManager.class) {
+                if (instance == null) {
+                    instance = new OwlAPIAccessManager();
+                }
+            }
+        }
+        return instance;
+    }
 
 
-	@Override
-	public <T,V> T getIndividual(Class<T> cls, V id) {
-		List<T> individuals = getIndividuals(cls);
-		Field field = getField(cls, "id");
-		field.setAccessible(true);
-		for (T ind : individuals) {
-			try {
-				Object o =field.get(ind);
-				if (id.equals(o)) {
-					return ind;
-				}
-			} catch (IllegalArgumentException e) {
-				LOGGER.error("", e);
-			} catch (IllegalAccessException e) {
-				LOGGER.error("", e);
-			}
-		}
-		return null;
-	}
+    @Override
+    public <T> List<T> getIndividuals(Class<T> cls) {
+        Set<OWLNamedIndividual> namedIndividuals = owlUtility.getDlQueryEngine()
+                .getInstances(cls.getSimpleName(), true);
+        Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+        Iterator<OWLNamedIndividual> it = namedIndividuals.iterator();
+        while (it.hasNext()) {
+            individuals.add(it.next());
+        }
+        List<T> objects = new ArrayList<T>();
 
-	/**
-	 * @param cls
-	 * @param individuals
-	 * @param objects
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 * @throws ParseException
-	 * @throws IllegalArgumentException
-	 */
+        try {
+            getIndividualsRecursive(cls, individuals, objects);
+        } catch (InstantiationException e) {
+            LOGGER.error("", e);
+        } catch (IllegalAccessException e) {
+            LOGGER.error("", e);
+        } catch (ClassNotFoundException e) {
+            LOGGER.error("", e);
+        } catch (ParseException e) {
+            LOGGER.error("", e);
+        }
+        return objects;
+    }
 
-	private <T> void getIndividualsRecursive(Class<?> cls, Set<OWLIndividual> individuals, List<T> objects)
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException,
-			ParseException {
-		if (!individuals.isEmpty()) {
-			for (OWLIndividual individ : individuals) {
-				Class<?> c = cls;
-				String className = individ.asOWLNamedIndividual().getIRI().toString()
-						.replace(OwlAPIUtility.OWL_URI, "");
-				int poz = className.indexOf("_");
-				className = className.substring(0, poz);
-				//className = className.replaceAll("\\_{1,2}[0-9]*", "");
 
-				if (!cls.getSimpleName().equals(className)) {
-					c = Class.forName(cls.getPackage().getName() + "." + className);
-				}
-				@SuppressWarnings("unchecked")
-				T clsInstance = (T) c.newInstance();
-				populateDataPropertyFields(c, individ, clsInstance);
-				populateObjectPropertyFields(c, individ, clsInstance);
-				objects.add(clsInstance);
-			}
-		}
-	}
+    @Override
+    public <T, V> T getIndividual(Class<T> cls, V id) {
+        List<T> individuals = getIndividuals(cls);
+        Field field = getField(cls, "id");
+        field.setAccessible(true);
+        for (T ind : individuals) {
+            try {
+                Object o = field.get(ind);
+                if (id.equals(o)) {
+                    return ind;
+                }
+            } catch (IllegalArgumentException e) {
+                LOGGER.error("", e);
+            } catch (IllegalAccessException e) {
+                LOGGER.error("", e);
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * @param cls
-	 * @param individ
-	 * @param clsInstance
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws ParseException
-	 * @throws IllegalArgumentException
-	 */
 
-	private <T> void populateObjectPropertyFields(Class<?> cls, OWLIndividual individ, T clsInstance)
-			throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException,
-			ParseException {
-		String propName;
-		// get object property values
-		Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectPropertyValues = individ
-				.getObjectPropertyValues(owlUtility.getOntology());
+    private <T> void getIndividualsRecursive(Class<?> cls, Set<OWLIndividual> individuals, List<T> objects)
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException,
+            ParseException {
+        if (!individuals.isEmpty()) {
+            for (OWLIndividual individ : individuals) {
+                Class<?> c = cls;
+                String className = individ.asOWLNamedIndividual().getIRI().toString()
+                        .replace(OwlAPIUtility.OWL_URI, "");
+                int poz = className.indexOf("_");
+                className = className.substring(0, poz);
 
-		for (OWLObjectPropertyExpression opv : objectPropertyValues.keySet()) {
+                if (!cls.getSimpleName().equals(className)) {
+                    c = Class.forName(cls.getPackage().getName() + "." + className);
+                }
+                @SuppressWarnings("unchecked")
+                T clsInstance = (T) c.newInstance();
+                populateDataPropertyFields(c, individ, clsInstance);
+                populateObjectPropertyFields(c, individ, clsInstance);
+                objects.add(clsInstance);
+            }
+        }
+    }
 
-			Set<OWLIndividual> newIndiv = objectPropertyValues.get(opv);
-			propName = opv.asOWLObjectProperty().getIRI().getFragment();
-			propName = propName.replace("has", "");
 
-			List<T> nObjects = new ArrayList<T>();
 
-			getIndividualsRecursive(cls, newIndiv, nObjects);
+    private <T> void populateObjectPropertyFields(Class<?> cls, OWLIndividual individ, T clsInstance)
+            throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException,
+            ParseException {
+        String propName;
+        // get object property values
+        Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objectPropertyValues = individ
+                .getObjectPropertyValues(owlUtility.getOntology());
 
-			propName = WordUtils.uncapitalize(propName);
-			Field field = getField(cls, propName);
+        for (OWLObjectPropertyExpression opv : objectPropertyValues.keySet()) {
 
-			if (field != null) {
-				if (field.getType().isInterface() && LIST_INTERFACE.equals(field.getType().toString())) {
-					field.setAccessible(true);
-					field.set(clsInstance, nObjects);
-				} else {
-					field.setAccessible(true);
-					field.set(clsInstance, nObjects.get(0));
-				}
-			}
-		}
-	}
+            Set<OWLIndividual> newIndiv = objectPropertyValues.get(opv);
+            propName = opv.asOWLObjectProperty().getIRI().getFragment();
+            propName = propName.replace("has", "");
 
-	/**
-	 * @param cls
-	 * @param individ
-	 * @param clsInstance
-	 * @throws IllegalAccessException
-	 * @throws ParseException
-	 * @throws IllegalArgumentException
-	 */
+            List<T> nObjects = new ArrayList<T>();
 
-	private <T> void populateDataPropertyFields(Class<?> cls, OWLIndividual individ, T clsInstance)
-			throws IllegalAccessException, IllegalArgumentException, ParseException {
-		String propName;
-		// get data property values
-		Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataPropertyValues = individ.getDataPropertyValues(owlUtility
-				.getOntology());
+            getIndividualsRecursive(cls, newIndiv, nObjects);
 
-		for (OWLDataPropertyExpression dpv : dataPropertyValues.keySet()) {
+            propName = WordUtils.uncapitalize(propName);
+            Field field = getField(cls, propName);
 
-			Set<OWLLiteral> literalSet = dataPropertyValues.get(dpv);
-			Iterator<OWLLiteral> it = literalSet.iterator();
+            if (field != null) {
+                if (field.getType().isInterface() && LIST_INTERFACE.equals(field.getType().toString())) {
+                    field.setAccessible(true);
+                    field.set(clsInstance, nObjects);
+                } else {
+                    field.setAccessible(true);
+                    field.set(clsInstance, nObjects.get(0));
+                }
+            }
+        }
+    }
 
-			propName = dpv.asOWLDataProperty().getIRI().getFragment();
-			propName = propName.replace("has", "");
-			propName = propName.replace("Component", "");
-			propName = WordUtils.uncapitalize(propName);
 
-			Field field = getField(cls, propName);
+    private <T> void populateDataPropertyFields(Class<?> cls, OWLIndividual individ, T clsInstance)
+            throws IllegalAccessException, IllegalArgumentException, ParseException {
+        String propName;
+        // get data property values
+        Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataPropertyValues = individ.getDataPropertyValues(owlUtility
+                .getOntology());
 
-			if (field != null) {
-				field.setAccessible(true);
+        for (OWLDataPropertyExpression dpv : dataPropertyValues.keySet()) {
 
-				if (it.hasNext()) {
-					OWLLiteral lit = it.next();
-					if (field.getType().getSimpleName().equals(String.class.getSimpleName())) {
-						field.set(clsInstance, lit.getLiteral());
-					} else if (field.getType().getSimpleName().equals(Long.class.getSimpleName())) {
-						field.set(clsInstance, Long.parseLong(lit.getLiteral()));
-					} else if (field.getType().getSimpleName().equals(Integer.class.getSimpleName())) {
-						field.set(clsInstance, Integer.parseInt(lit.getLiteral()));
-					} else if (field.getType().getSimpleName().equals(Float.class.getSimpleName())) {
-						field.set(clsInstance, Float.parseFloat(lit.getLiteral()));
-					} else if (field.getType().getSimpleName().equals(Double.class.getSimpleName())) {
-						field.set(clsInstance, Double.parseDouble(lit.getLiteral()));
-					} else if (field.getType().getSimpleName().equals(Boolean.class.getSimpleName())) {
-						field.set(clsInstance, lit.parseBoolean());
-					} else if (field.getType().getSimpleName().equals(Date.class.getSimpleName())) {
-						SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
-						field.set(clsInstance, dt.parse(lit.getLiteral()));
-					} else if (field.getType().getSimpleName().equals(long.class.getSimpleName())) {
-						field.setLong(clsInstance, Long.parseLong(lit.getLiteral()));
-					} else if (field.getType().getSimpleName().equals(double.class.getSimpleName())) {
-						field.setDouble(clsInstance, lit.parseDouble());
-					} else if (field.getType().getSimpleName().equals(int.class.getSimpleName())) {
-						field.setInt(clsInstance, lit.parseInteger());
-					} else if (field.getType().getSimpleName().equals(float.class.getSimpleName())) {
-						field.setFloat(clsInstance, lit.parseFloat());
-					} else if (field.getType().getSimpleName().equals(boolean.class.getSimpleName())) {
-						field.setBoolean(clsInstance, lit.parseBoolean());
-					}
-				}
-			}
-		}
-	}
+            Set<OWLLiteral> literalSet = dataPropertyValues.get(dpv);
+            Iterator<OWLLiteral> it = literalSet.iterator();
 
-	/**
-	 * @param cls
-	 * @param name
-	 * @return
-	 */
+            propName = dpv.asOWLDataProperty().getIRI().getFragment();
+            propName = propName.replace("has", "");
+            propName = propName.replace("Component", "");
+            propName = WordUtils.uncapitalize(propName);
 
-	private Field getField(Class<?> cls, String name) {
-		Class<?> clazz = cls;
-		while (clazz != null) {
-			for (Field field : clazz.getDeclaredFields()) {
-				if (field.getName().equals(name)) {
-					return field;
-				}
-			}
-			clazz = clazz.getSuperclass();
-		}
-		return null;
-	}
+            Field field = getField(cls, propName);
 
-	@Override
-	public <T> void addIndividual(T t) {
+            if (field != null) {
+                field.setAccessible(true);
 
-		OntologyIndividual ontologyData = EntityReflectionParser.getOntologyData(t);
+                if (it.hasNext()) {
+                    OWLLiteral lit = it.next();
+                    if (field.getType().getSimpleName().equals(String.class.getSimpleName())) {
+                        field.set(clsInstance, lit.getLiteral());
+                    } else if (field.getType().getSimpleName().equals(Long.class.getSimpleName())) {
+                        field.set(clsInstance, Long.parseLong(lit.getLiteral()));
+                    } else if (field.getType().getSimpleName().equals(Integer.class.getSimpleName())) {
+                        field.set(clsInstance, Integer.parseInt(lit.getLiteral()));
+                    } else if (field.getType().getSimpleName().equals(Float.class.getSimpleName())) {
+                        field.set(clsInstance, Float.parseFloat(lit.getLiteral()));
+                    } else if (field.getType().getSimpleName().equals(Double.class.getSimpleName())) {
+                        field.set(clsInstance, Double.parseDouble(lit.getLiteral()));
+                    } else if (field.getType().getSimpleName().equals(Boolean.class.getSimpleName())) {
+                        field.set(clsInstance, lit.parseBoolean());
+                    } else if (field.getType().getSimpleName().equals(Date.class.getSimpleName())) {
+                        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
+                        field.set(clsInstance, dt.parse(lit.getLiteral()));
+                    } else if (field.getType().getSimpleName().equals(long.class.getSimpleName())) {
+                        field.setLong(clsInstance, Long.parseLong(lit.getLiteral()));
+                    } else if (field.getType().getSimpleName().equals(double.class.getSimpleName())) {
+                        field.setDouble(clsInstance, lit.parseDouble());
+                    } else if (field.getType().getSimpleName().equals(int.class.getSimpleName())) {
+                        field.setInt(clsInstance, lit.parseInteger());
+                    } else if (field.getType().getSimpleName().equals(float.class.getSimpleName())) {
+                        field.setFloat(clsInstance, lit.parseFloat());
+                    } else if (field.getType().getSimpleName().equals(boolean.class.getSimpleName())) {
+                        field.setBoolean(clsInstance, lit.parseBoolean());
+                    }
+                }
+            }
+        }
+    }
 
-		OWLDataFactory factory = owlUtility.getFactory();
-		OWLOntologyManager manager = owlUtility.getManager();
-		OWLOntology ontology = owlUtility.getOntology();
 
-		String className = ontologyData.getClassName();
-		Object id = ontologyData.getId();
 
-		OWLClass owlClass = factory.getOWLClass(IRI.create(OwlAPIUtility.OWL_URI + className));
+    private Field getField(Class<?> cls, String name) {
+        Class<?> clazz = cls;
+        while (clazz != null) {
+            for (Field field : clazz.getDeclaredFields()) {
+                if (field.getName().equals(name)) {
+                    return field;
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return null;
+    }
 
-		OWLNamedIndividual owlIndividual = factory.getOWLNamedIndividual(IRI.create(OwlAPIUtility.OWL_URI + className
-				+ "_" + id));
+    @Override
+    public <T> void addIndividual(T t) {
 
-		OWLClassAssertionAxiom classAssertion = factory.getOWLClassAssertionAxiom(owlClass, owlIndividual);
+        OntologyIndividual ontologyData = EntityReflectionParser.getOntologyData(t);
 
-		manager.addAxiom(ontology, classAssertion);
+        OWLDataFactory factory = owlUtility.getFactory();
+        OWLOntologyManager manager = owlUtility.getManager();
+        OWLOntology ontology = owlUtility.getOntology();
 
-		for (Map.Entry<String, Object> entry : ontologyData.getParams().entrySet()) {
-			String dataProperty = entry.getKey();
-			Object value = entry.getValue();
+        String className = ontologyData.getClassName();
+        Object id = ontologyData.getId();
 
-			OWLDataProperty property = factory.getOWLDataProperty(IRI.create(OwlAPIUtility.OWL_URI + dataProperty));
-			OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = getDataPropertyAssertionAxiom(value, factory, owlIndividual, property);
-			manager.addAxiom(ontology, dataPropertyAssertionAxiom);
-		}
+        OWLClass owlClass = factory.getOWLClass(IRI.create(OwlAPIUtility.OWL_URI + className));
 
-		for (Map.Entry<String, List<RangeData>> entry : ontologyData.getForeignKeys().entrySet()) {
+        OWLNamedIndividual owlIndividual = factory.getOWLNamedIndividual(IRI.create(OwlAPIUtility.OWL_URI + className
+                + "_" + id));
 
-			OWLObjectProperty property = factory
-					.getOWLObjectProperty(IRI.create(OwlAPIUtility.OWL_URI + entry.getKey()));
+        OWLClassAssertionAxiom classAssertion = factory.getOWLClassAssertionAxiom(owlClass, owlIndividual);
 
-			for (RangeData rangeData : entry.getValue()) {
+        manager.addAxiom(ontology, classAssertion);
 
-				String individualClassName = rangeData.getClassName();
-				Object individualId = rangeData.getId();
+        for (Map.Entry<String, Object> entry : ontologyData.getParams().entrySet()) {
+            String dataProperty = entry.getKey();
+            Object value = entry.getValue();
 
-				OWLNamedIndividual subject = factory.getOWLNamedIndividual(IRI.create(OwlAPIUtility.OWL_URI
-						+ individualClassName + "_" + individualId));
+            OWLDataProperty property = factory.getOWLDataProperty(IRI.create(OwlAPIUtility.OWL_URI + dataProperty));
+            OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = getDataPropertyAssertionAxiom(value, factory, owlIndividual, property);
+            manager.addAxiom(ontology, dataPropertyAssertionAxiom);
+        }
 
-				OWLObjectPropertyAssertionAxiom objectPropertyAssertion = factory.getOWLObjectPropertyAssertionAxiom(
-						property,  owlIndividual, subject);
+        for (Map.Entry<String, List<RangeData>> entry : ontologyData.getForeignKeys().entrySet()) {
 
-				manager.addAxiom(ontology, objectPropertyAssertion);
-			}
+            OWLObjectProperty property = factory
+                    .getOWLObjectProperty(IRI.create(OwlAPIUtility.OWL_URI + entry.getKey()));
 
-		}
+            for (RangeData rangeData : entry.getValue()) {
 
-		OWLDataProperty property = factory.getOWLDataProperty(IRI.create(OwlAPIUtility.OWL_URI + "hasId"));
+                String individualClassName = rangeData.getClassName();
+                Object individualId = rangeData.getId();
 
-		//OWLLiteral literal = new OWLLiteralImpl(id.toString(), "", factory.getOWLDatatype(IRI
-		//		.create("http://www.w3.org/2001/XMLSchema#long")));
+                OWLNamedIndividual subject = factory.getOWLNamedIndividual(IRI.create(OwlAPIUtility.OWL_URI
+                        + individualClassName + "_" + individualId));
 
-		//OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property,
-		//		owlIndividual, literal);
+                OWLObjectPropertyAssertionAxiom objectPropertyAssertion = factory.getOWLObjectPropertyAssertionAxiom(
+                        property, owlIndividual, subject);
 
-		OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom1 = getDataPropertyAssertionAxiom(id, factory, owlIndividual, property);
-		manager.addAxiom(ontology, dataPropertyAssertionAxiom1);
+                manager.addAxiom(ontology, objectPropertyAssertion);
+            }
 
-	}
+        }
 
-	private  OWLDataPropertyAssertionAxiom getDataPropertyAssertionAxiom(Object value, OWLDataFactory factory, OWLNamedIndividual owlIndividual,	OWLDataProperty property ){
-		OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = null;
-		if (value instanceof Double) {
-			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-					(Double) value);
-		}
-		if (value instanceof String) {
-			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-					(String) value);
-		}
-		if (value instanceof Integer) {
-			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-					(Integer) value);
-		}
-		if (value instanceof Long) {
-			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-					(String) value.toString());
-		}
-		if (value instanceof Boolean) {
-			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-					(Boolean) value);
-		}
-		if (value instanceof Float) {
-			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-					(Float) value);
-		}
-		if (value instanceof Date) {
-			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
-			String dateStringValue = dt.format((Date) value);
-			OWLLiteral literal = new OWLLiteralImpl(dateStringValue, "", factory.getOWLDatatype(IRI
-					.create("http://www.w3.org/2001/XMLSchema#dateTime")));
+        OWLDataProperty property = factory.getOWLDataProperty(IRI.create(OwlAPIUtility.OWL_URI + "hasId"));
 
-			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual, literal);
-		}
-		return dataPropertyAssertionAxiom;
-	}
+        //OWLLiteral literal = new OWLLiteralImpl(id.toString(), "", factory.getOWLDatatype(IRI
+        //		.create("http://www.w3.org/2001/XMLSchema#long")));
 
-	@Override
-	public <T> void updateIndividual(T t) {
-		OntologyIndividual data = EntityReflectionParser.getOntologyData(t);
-		Object id = data.getId();
-		deleteIndividual(t.getClass(), id);
-		addIndividual(t);
-	}
+        //OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property,
+        //		owlIndividual, literal);
 
-	@Override
-	public <T,V> void deleteIndividual(Class<T> cls, V id) {
+        OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom1 = getDataPropertyAssertionAxiom(id, factory, owlIndividual, property);
+        manager.addAxiom(ontology, dataPropertyAssertionAxiom1);
 
-		OWLDataFactory factory = owlUtility.getFactory();
-		OWLOntologyManager manager = owlUtility.getManager();
-		OWLOntology ontology = owlUtility.getOntology();
+    }
 
-		String className = cls.getSimpleName();
+    private OWLDataPropertyAssertionAxiom getDataPropertyAssertionAxiom(Object value, OWLDataFactory factory, OWLNamedIndividual owlIndividual, OWLDataProperty property) {
+        OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = null;
+        if (value instanceof Double) {
+            dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+                    (Double) value);
+        }
+        if (value instanceof String) {
+            dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+                    (String) value);
+        }
+        if (value instanceof Integer) {
+            dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+                    (Integer) value);
+        }
+        if (value instanceof Long) {
+            dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+                    (String) value.toString());
+        }
+        if (value instanceof Boolean) {
+            dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+                    (Boolean) value);
+        }
+        if (value instanceof Float) {
+            dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+                    (Float) value);
+        }
+        if (value instanceof Date) {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
+            String dateStringValue = dt.format((Date) value);
+            OWLLiteral literal = new OWLLiteralImpl(dateStringValue, "", factory.getOWLDatatype(IRI
+                    .create("http://www.w3.org/2001/XMLSchema#dateTime")));
 
-		OWLNamedIndividual owlIndividual = factory.getOWLNamedIndividual(IRI.create(OwlAPIUtility.OWL_URI + className
-				+ "_" + id));
+            dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual, literal);
+        }
+        return dataPropertyAssertionAxiom;
+    }
 
-		OWLEntityRemover remover = new OWLEntityRemover(manager, Collections.singleton(ontology));
-		remover.visit(owlIndividual);
-		manager.applyChanges(remover.getChanges());
+    @Override
+    public <T> void updateIndividual(T t) {
+        OntologyIndividual data = EntityReflectionParser.getOntologyData(t);
+        Object id = data.getId();
+        deleteIndividual(t.getClass(), id);
+        addIndividual(t);
+    }
 
-	}
+    @Override
+    public <T, V> void deleteIndividual(Class<T> cls, V id) {
+
+        OWLDataFactory factory = owlUtility.getFactory();
+        OWLOntologyManager manager = owlUtility.getManager();
+        OWLOntology ontology = owlUtility.getOntology();
+
+        String className = cls.getSimpleName();
+
+        OWLNamedIndividual owlIndividual = factory.getOWLNamedIndividual(IRI.create(OwlAPIUtility.OWL_URI + className
+                + "_" + id));
+
+        OWLEntityRemover remover = new OWLEntityRemover(manager, Collections.singleton(ontology));
+        remover.visit(owlIndividual);
+        manager.applyChanges(remover.getChanges());
+
+    }
 
 }

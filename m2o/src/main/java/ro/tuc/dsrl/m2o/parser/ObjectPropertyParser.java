@@ -13,72 +13,76 @@ import ro.tuc.dsrl.m2o.datamodel.ObjectPropertyValue;
 import ro.tuc.dsrl.m2o.datamodel.OntologyIndividual;
 import ro.tuc.dsrl.m2o.datamodel.OntologyIndividual.ObjectPropertyData;
 
+/**
+ * @Author: Technical University of Cluj-Napoca, Romania Distributed Systems
+ * Research Laboratory, http://dsrl.coned.utcluj.ro/
+ */
 public class ObjectPropertyParser {
-	private static final Log LOGGER = LogFactory
-			.getLog(ObjectPropertyParser.class);
+    private static final Log LOGGER = LogFactory
+            .getLog(ObjectPropertyParser.class);
 
-	private static final String ID = "id";
+    private static final String ID = "id";
 
-	private ObjectPropertyParser() {
-	}
+    private ObjectPropertyParser() {
+    }
 
-	private static ObjectPropertyValue parseForeignKey(Object value,
-			ObjectPropertyData objectPropertyData) {
+    private static ObjectPropertyValue parseForeignKey(Object value,
+                                                       ObjectPropertyData objectPropertyData) {
 
-		String objectProperty = objectPropertyData
-				.getObjectProperty();
-	//	objectProperty = "has" + objectProperty;
+        String objectProperty = objectPropertyData
+                .getObjectProperty();
+        //	objectProperty = "has" + objectProperty;
 
 
-		if (value == null) {
-			Class<?> clazz = objectPropertyData.getRange();
-			String name = clazz.getSimpleName();
-			return new ObjectPropertyValue(objectProperty,
-					new OntologyIndividual.RangeData(name, null));
-		}
-		
-		Class<?> clazz = value.getClass();
-		String name = clazz.getSimpleName();
+        if (value == null) {
+            Class<?> clazz = objectPropertyData.getRange();
+            String name = clazz.getSimpleName();
+            return new ObjectPropertyValue(objectProperty,
+                    new OntologyIndividual.RangeData(name, null));
+        }
 
-		while (clazz != null) {
-			for (Field field : clazz.getDeclaredFields()) {
-				field.setAccessible(true);
-				Object fkFieldValue;
-				try {
-					fkFieldValue = field.get(value);
-					if (fkFieldValue != null && ID.equals(field.getName())) {
-						return new ObjectPropertyValue(objectProperty,
-								new OntologyIndividual.RangeData(name,
-										 fkFieldValue));
+        Class<?> clazz = value.getClass();
+        String name = clazz.getSimpleName();
 
-					}
-				} catch (IllegalArgumentException e) {
-					LOGGER.error("", e);
-				} catch (IllegalAccessException e) {
-					LOGGER.error("", e);
-				}
-			}
-			clazz = clazz.getSuperclass();
-		}
-		return null;
-	}
+        while (clazz != null) {
+            for (Field field : clazz.getDeclaredFields()) {
+                field.setAccessible(true);
+                Object fkFieldValue;
+                try {
+                    fkFieldValue = field.get(value);
+                    if (fkFieldValue != null && ID.equals(field.getName())) {
+                        return new ObjectPropertyValue(objectProperty,
+                                new OntologyIndividual.RangeData(name,
+                                        fkFieldValue));
 
-	public static List<ObjectPropertyValue> parseCollectionForeignKey(
-			Object value, ObjectPropertyData objectProperty) {
-		List<ObjectPropertyValue> toReturn = new ArrayList<ObjectPropertyValue>();
+                    }
+                } catch (IllegalArgumentException e) {
+                    LOGGER.error("", e);
+                } catch (IllegalAccessException e) {
+                    LOGGER.error("", e);
+                }
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return null;
+    }
 
-		Object[] containedValues;
-		if (value instanceof Collection) {
-			containedValues = ((Collection<?>) value).toArray();
-			for (Object obj : containedValues) {
-				toReturn.add(parseForeignKey(obj, objectProperty));
-			}
+    public static List<ObjectPropertyValue> parseCollectionForeignKey(
+            Object value, ObjectPropertyData objectProperty) {
+        List<ObjectPropertyValue> toReturn = new ArrayList<ObjectPropertyValue>();
 
-			return toReturn;
-		}
+        Object[] containedValues;
+        if (value instanceof Collection) {
+            containedValues = ((Collection<?>) value).toArray();
+            for (Object obj : containedValues) {
+                toReturn.add(parseForeignKey(obj, objectProperty));
+            }
 
-		toReturn.add(parseForeignKey(value, objectProperty));
-		return toReturn;
-	}
+            return toReturn;
+        }
+
+        toReturn.add(parseForeignKey(value, objectProperty));
+        return toReturn;
+    }
 
 }
