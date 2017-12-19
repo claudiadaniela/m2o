@@ -15,7 +15,41 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Teacher.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Teacher.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="12" column="33" lean-forward="true" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Subject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Subject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="24" column="28" lean-forward="false" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+              <folding>
+                <element signature="e#440#441#0" expanded="true" />
+                <element signature="e#459#460#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CRUDTests.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/CRUDTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-238">
+              <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -36,11 +70,8 @@
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/TeacherRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/utility/PropertiesLoader.java" />
         <option value="$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/EntityGenerationTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/CRUDTests.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/Start.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Person.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Student.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Subject.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Teacher.java" />
         <option value="$PROJECT_DIR$/src/test/resources/test-owl-config.config" />
         <option value="$PROJECT_DIR$/src/main/resources/owl-config.config" />
@@ -53,7 +84,6 @@
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/parser/AnnotationParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/parser/EntityReflectionParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/repos/StudentRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/repos/SubjectRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/repos/TeacherRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/wine/repos/RegionRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/wine/repos/WineBodyRepository.java" />
@@ -62,11 +92,15 @@
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/wine/repos/WineRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/wine/repos/WineryRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/wine/repos/WineSugarRepository.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/TestEntityReflectionTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/parser/ObjectPropertyParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/ontology/access/OwlAPIAccessManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/ontology/access/JenaAccessManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/datamodel/OntologyIndividual.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Subject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/repos/SubjectRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/TestEntityReflectionTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/Start.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/CRUDTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/ontology/access/OwlAPIAccessManager.java" />
       </list>
     </option>
   </component>
@@ -405,6 +439,44 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="repos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="m2o" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="m2o" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="m2o" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="examples" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="school" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="entities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -969,26 +1041,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1513592606215</updated>
-      <workItem from="1513592610024" duration="11463000" />
+      <workItem from="1513592610024" duration="15264000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_m2o - 2017.12.18 at 16h 40m 18s.xml">
-      <configuration name="All in m2o" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CRUDTests - 2017.12.18 at 16h 01m 40s.xml">
-      <configuration name="CRUDTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CRUDTests - 2017.12.18 at 16h 02m 21s.xml">
-      <configuration name="CRUDTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="CRUDTests - 2017.12.18 at 16h 02m 34s.xml">
-      <configuration name="CRUDTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.18 at 16h 36m 34s.xml">
-      <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.18 at 17h 12m 34s.xml">
       <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
     </history-entry>
@@ -1004,13 +1061,28 @@
     <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.19 at 13h 41m 02s.xml">
       <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.19 at 13h 45m 03s.xml">
+      <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.19 at 14h 14m 16s.xml">
+      <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.19 at 14h 28m 41s.xml">
+      <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.19 at 14h 59m 09s.xml">
+      <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ro_tuc_dsrl_m2o_tests_in_m2o - 2017.12.19 at 14h 59m 27s.xml">
+      <configuration name="ro.tuc.dsrl.m2o.tests in m2o" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11463000" />
+    <option name="totallyTimeSpent" value="15264000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1021,7 +1093,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2706131" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.397463" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1034,7 +1106,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5243129" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39006343" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
@@ -1051,7 +1123,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1060,22 +1132,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/utility/ConfigurationProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/servers/PhysicalActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1124,28 +1180,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/EntityGenerationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="124" column="4" lean-forward="false" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1343#1344#0" expanded="true" />
-            <element signature="e#1426#1427#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/CRUDTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Person.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1158,22 +1192,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Subject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Teacher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1300,14 +1318,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/repos/SubjectRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="71" lean-forward="false" selection-start-line="5" selection-start-column="71" selection-end-line="5" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/repos/TeacherRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1380,14 +1390,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/Start.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="64" column="1" lean-forward="true" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/ontology/access/OntologyRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1410,24 +1412,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/TestEntityReflectionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/ontology/access/OwlAPIAccessManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="329" column="10" lean-forward="false" selection-start-line="329" selection-start-column="10" selection-end-line="329" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1468,6 +1452,105 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="38" column="8" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Parent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="19" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/Start.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/ontology/utility/OwlAPIUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="318" column="0" lean-forward="false" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
+          <folding>
+            <element signature="e#11250#11251#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_141/src.zip!/java/lang/reflect/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="383" column="17" lean-forward="false" selection-start-line="383" selection-start-column="11" selection-end-line="383" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/repos/SubjectRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/TestEntityReflectionTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="688">
+          <caret line="60" column="42" lean-forward="false" selection-start-line="60" selection-start-column="42" selection-end-line="60" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/EntityGenerationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="124" column="4" lean-forward="false" selection-start-line="124" selection-start-column="4" selection-end-line="124" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/ontology/access/OwlAPIAccessManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+          <folding>
+            <element signature="e#2724#2739#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Teacher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="12" column="33" lean-forward="true" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ro/tuc/dsrl/m2o/examples/school/entities/Subject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="24" column="28" lean-forward="false" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding>
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ro/tuc/dsrl/m2o/tests/CRUDTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="18" column="16" lean-forward="false" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
           <folding />
         </state>
       </provider>

@@ -7,22 +7,22 @@ import ro.tuc.dsrl.m2o.annotations.OntologyEntity;
 public class Subject {
 
 	@InstanceIdentifier
-	private Long id;
+	private String id;
 	private String name;
 
 	public Subject() {
 	}
 
-	public Subject(Long id, String name) {
+	public Subject(String id, String name) {
 		this.id = id;
 		this.name = name;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

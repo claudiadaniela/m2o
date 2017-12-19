@@ -25,19 +25,19 @@ public class CRUDTests {
         assertEquals("Subject size before", 0, subjects.size());
 
         // CREATE
-        Subject subject = new Subject(2L, "Math");
+        Subject subject = new Subject("m", "Math");
         dRepo.create(subject);
         subjects = dRepo.findAll();
         assertEquals("Subject size after insert", 1, subjects.size());
         assertEquals("Subject  after insert", "Math", subjects.get(0).getName());
 
         // DELETE
-        dRepo.delete(1L);
+        dRepo.delete("mt");
         subjects = dRepo.findAll();
         assertEquals("Subject size after delete", 1, subjects.size());
 
         // UPDATE
-        subject = dRepo.findByIdentifier(2L);
+        subject = dRepo.findByIdentifier("m");
         subject.setName("Mathematics");
         dRepo.update(subject);
 
@@ -46,7 +46,7 @@ public class CRUDTests {
         assertEquals("Subject  after update", "Mathematics", subjects.get(0).getName());
 
         // DELETE
-        dRepo.delete(2L);
+        dRepo.delete("m");
         subjects = dRepo.findAll();
         assertEquals("Subject size after delete", 0, subjects.size());
     }

@@ -29,18 +29,18 @@ public class Start {
 		LOGGER.info(" First size: " + subjects.size());
 
 		// CREATE
-		Subject subject = new Subject(2L, "Math");
+		Subject subject = new Subject("m", "Math");
 		dRepo.create(subject);
 		subjects = dRepo.findAll();
 		LOGGER.info(" Created size: " + subjects.size());
 
 		// DELETE
-		dRepo.delete(1L);
+		dRepo.delete("mt");
 		subjects = dRepo.findAll();
 		LOGGER.info(" Deleted size: " + subjects.size());
 
 		// UPDATE
-		subject = dRepo.findByIdentifier(2L);
+		subject = dRepo.findByIdentifier("m");
 		subject.setName("Mathematics");
 		dRepo.update(subject);
 

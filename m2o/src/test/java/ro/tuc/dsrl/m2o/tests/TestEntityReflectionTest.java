@@ -32,7 +32,7 @@ public class TestEntityReflectionTest {
 	}
 	@Test
 	public void testInsertTeacher() {
-		Subject subject = new Subject(13L, "subject");
+		Subject subject = new Subject("subj", "subject");
 		Teacher entity = new Teacher(1L, "teacher", 35, "Cluj", false, subject);
 
 		List<Person> students = new ArrayList<Person>();
@@ -58,7 +58,7 @@ public class TestEntityReflectionTest {
 
 	@Test
 	public void testInsertDirector() {
-		Subject entity = new Subject(13L, "mainDirector");
+		Subject entity = new Subject("subj", "mainDirector");
 		OntologyIndividual data = EntityReflectionParser.getOntologyData(entity);
 		System.out.println(data);
 	}

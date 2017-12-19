@@ -102,7 +102,8 @@ public class OwlAPIAccessManager implements OntologyAccessManager {
 		field.setAccessible(true);
 		for (T ind : individuals) {
 			try {
-				if (field.get(ind) == id) {
+				Object o =field.get(ind);
+				if (id.equals(o)) {
 					return ind;
 				}
 			} catch (IllegalArgumentException e) {
@@ -133,7 +134,10 @@ public class OwlAPIAccessManager implements OntologyAccessManager {
 				Class<?> c = cls;
 				String className = individ.asOWLNamedIndividual().getIRI().toString()
 						.replace(OwlAPIUtility.OWL_URI, "");
-				className = className.replaceAll("\\_{1,2}[0-9]*", "");
+				int poz = className.indexOf("_");
+				className = className.substring(0, poz);
+				//className = className.replaceAll("\\_{1,2}[0-9]*", "");
+
 				if (!cls.getSimpleName().equals(className)) {
 					c = Class.forName(cls.getPackage().getName() + "." + className);
 				}
