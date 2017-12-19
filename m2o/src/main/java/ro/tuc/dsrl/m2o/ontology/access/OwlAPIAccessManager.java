@@ -94,16 +94,9 @@ public class OwlAPIAccessManager implements OntologyAccessManager {
 		return objects;
 	}
 
-	/**
-	 * @param cls
-	 * @param windPowerSourceId
-	 * @return
-	 * @throws ClassNotFoundException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 */
+
 	@Override
-	public <T> T getIndividual(Class<T> cls, Long id) {
+	public <T,V> T getIndividual(Class<T> cls, V id) {
 		List<T> individuals = getIndividuals(cls);
 		Field field = getField(cls, "id");
 		field.setAccessible(true);
@@ -290,7 +283,7 @@ public class OwlAPIAccessManager implements OntologyAccessManager {
 		OWLOntology ontology = owlUtility.getOntology();
 
 		String className = ontologyData.getClassName();
-		Long id = ontologyData.getId();
+		Object id = ontologyData.getId();
 
 		OWLClass owlClass = factory.getOWLClass(IRI.create(OwlAPIUtility.OWL_URI + className));
 
@@ -306,39 +299,7 @@ public class OwlAPIAccessManager implements OntologyAccessManager {
 			Object value = entry.getValue();
 
 			OWLDataProperty property = factory.getOWLDataProperty(IRI.create(OwlAPIUtility.OWL_URI + dataProperty));
-			OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = null;
-			if (value instanceof Double) {
-				dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-						(Double) value);
-			}
-			if (value instanceof String) {
-				dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-						(String) value);
-			}
-			if (value instanceof Integer) {
-				dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-						(Integer) value);
-			}
-			if (value instanceof Long) {
-				dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-						(String) value.toString());
-			}
-			if (value instanceof Boolean) {
-				dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-						(Boolean) value);
-			}
-			if (value instanceof Float) {
-				dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
-						(Float) value);
-			}
-			if (value instanceof Date) {
-				SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
-				String dateStringValue = dt.format((Date) value);
-				OWLLiteral literal = new OWLLiteralImpl(dateStringValue, "", factory.getOWLDatatype(IRI
-						.create("http://www.w3.org/2001/XMLSchema#dateTime")));
-
-				dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual, literal);
-			}
+			OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = getDataPropertyAssertionAxiom(value, factory, owlIndividual, property);
 			manager.addAxiom(ontology, dataPropertyAssertionAxiom);
 		}
 
@@ -350,7 +311,7 @@ public class OwlAPIAccessManager implements OntologyAccessManager {
 			for (RangeData rangeData : entry.getValue()) {
 
 				String individualClassName = rangeData.getClassName();
-				long individualId = rangeData.getId();
+				Object individualId = rangeData.getId();
 
 				OWLNamedIndividual subject = factory.getOWLNamedIndividual(IRI.create(OwlAPIUtility.OWL_URI
 						+ individualClassName + "_" + individualId));
@@ -365,25 +326,64 @@ public class OwlAPIAccessManager implements OntologyAccessManager {
 
 		OWLDataProperty property = factory.getOWLDataProperty(IRI.create(OwlAPIUtility.OWL_URI + "hasId"));
 
-		OWLLiteral literal = new OWLLiteralImpl(id.toString(), "", factory.getOWLDatatype(IRI
-				.create("http://www.w3.org/2001/XMLSchema#long")));
+		//OWLLiteral literal = new OWLLiteralImpl(id.toString(), "", factory.getOWLDatatype(IRI
+		//		.create("http://www.w3.org/2001/XMLSchema#long")));
 
-		OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property,
-				owlIndividual, literal);
-		manager.addAxiom(ontology, dataPropertyAssertionAxiom);
+		//OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property,
+		//		owlIndividual, literal);
 
+		OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom1 = getDataPropertyAssertionAxiom(id, factory, owlIndividual, property);
+		manager.addAxiom(ontology, dataPropertyAssertionAxiom1);
+
+	}
+
+	private  OWLDataPropertyAssertionAxiom getDataPropertyAssertionAxiom(Object value, OWLDataFactory factory, OWLNamedIndividual owlIndividual,	OWLDataProperty property ){
+		OWLDataPropertyAssertionAxiom dataPropertyAssertionAxiom = null;
+		if (value instanceof Double) {
+			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+					(Double) value);
+		}
+		if (value instanceof String) {
+			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+					(String) value);
+		}
+		if (value instanceof Integer) {
+			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+					(Integer) value);
+		}
+		if (value instanceof Long) {
+			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+					(String) value.toString());
+		}
+		if (value instanceof Boolean) {
+			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+					(Boolean) value);
+		}
+		if (value instanceof Float) {
+			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual,
+					(Float) value);
+		}
+		if (value instanceof Date) {
+			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
+			String dateStringValue = dt.format((Date) value);
+			OWLLiteral literal = new OWLLiteralImpl(dateStringValue, "", factory.getOWLDatatype(IRI
+					.create("http://www.w3.org/2001/XMLSchema#dateTime")));
+
+			dataPropertyAssertionAxiom = factory.getOWLDataPropertyAssertionAxiom(property, owlIndividual, literal);
+		}
+		return dataPropertyAssertionAxiom;
 	}
 
 	@Override
 	public <T> void updateIndividual(T t) {
 		OntologyIndividual data = EntityReflectionParser.getOntologyData(t);
-		Long id = data.getId();
+		Object id = data.getId();
 		deleteIndividual(t.getClass(), id);
 		addIndividual(t);
 	}
 
 	@Override
-	public <T> void deleteIndividual(Class<T> cls, Long id) {
+	public <T,V> void deleteIndividual(Class<T> cls, V id) {
 
 		OWLDataFactory factory = owlUtility.getFactory();
 		OWLOntologyManager manager = owlUtility.getManager();

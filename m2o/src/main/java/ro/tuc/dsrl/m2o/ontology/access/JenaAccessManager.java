@@ -55,7 +55,7 @@ public class JenaAccessManager implements OntologyAccessManager {
 		OntologyIndividual data = EntityReflectionParser.getOntologyData(t);
 
 		String className = data.getClassName();
-		Long id = data.getId();
+		Object id = data.getId();
 
 		OntClass ontClass = jenaUtility.getOntModel().getOntClass(JenaUtility.OWL_URI + className);
 		Individual individual = jenaUtility.getOntModel().createIndividual(JenaUtility.OWL_URI + className + "_" + id,
@@ -66,29 +66,7 @@ public class JenaAccessManager implements OntologyAccessManager {
 			Object value = entry.getValue();
 			DatatypeProperty datatypeProperty = jenaUtility.getOntModel().getDatatypeProperty(
 					JenaUtility.OWL_URI + dataProperty);
-			if (value instanceof Double) {
-				individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDdouble);
-			}
-			if (value instanceof String) {
-				individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDstring);
-			}
-			if (value instanceof Integer) {
-				individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDint);
-			}
-			if (value instanceof Long) {
-				individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDlong);
-			}
-			if (value instanceof Boolean) {
-				individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDboolean);
-			}
-			if (value instanceof Float) {
-				individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDfloat);
-			}
-			if (value instanceof Date) {
-				SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
-				String dateStringValue = dt.format((Date) value);
-				individual.addProperty(datatypeProperty, dateStringValue, XSDDatatype.XSDdateTime);
-			}
+			addDataProperty(individual, datatypeProperty, value);
 		}
 
 		for (Map.Entry<String, List<RangeData>> entry : data.getForeignKeys().entrySet()) {
@@ -100,7 +78,7 @@ public class JenaAccessManager implements OntologyAccessManager {
 
 			for (RangeData rangeData : entry.getValue()) {
 				String individualClassName = rangeData.getClassName();
-				long individualId = rangeData.getId();
+				Object individualId = rangeData.getId();
 
 				Individual subject = jenaUtility.getOntModel().getIndividual(
 						JenaUtility.OWL_URI + individualClassName + "_" + individualId);
@@ -114,12 +92,38 @@ public class JenaAccessManager implements OntologyAccessManager {
 
 		DatatypeProperty hasId = jenaUtility.getOntModel().getDatatypeProperty(JenaUtility.OWL_URI + "hasId");
 
-		individual.addProperty(hasId, id.toString(), XSDDatatype.XSDlong);
+		//individual.addProperty(hasId, id.toString(), XSDDatatype.XSDlong);
+		addDataProperty(individual, hasId, id);
 
+	}
+	private void addDataProperty(Individual individual, DatatypeProperty datatypeProperty, Object value){
+		if (value instanceof Double) {
+			individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDdouble);
+		}
+		if (value instanceof String) {
+			individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDstring);
+		}
+		if (value instanceof Integer) {
+			individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDint);
+		}
+		if (value instanceof Long) {
+			individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDlong);
+		}
+		if (value instanceof Boolean) {
+			individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDboolean);
+		}
+		if (value instanceof Float) {
+			individual.addProperty(datatypeProperty, value.toString(), XSDDatatype.XSDfloat);
+		}
+		if (value instanceof Date) {
+			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S a z");
+			String dateStringValue = dt.format((Date) value);
+			individual.addProperty(datatypeProperty, dateStringValue, XSDDatatype.XSDdateTime);
+		}
 	}
 
 	@Override
-	public <T> void deleteIndividual(Class<T> cls, Long id) {
+	public <T,V> void deleteIndividual(Class<T> cls, V id) {
 		String className = cls.getSimpleName();
 
 		OntClass ontClass = jenaUtility.getOntModel().getOntClass(JenaUtility.OWL_URI + className);
@@ -132,7 +136,7 @@ public class JenaAccessManager implements OntologyAccessManager {
 	@Override
 	public <T> void updateIndividual(T t) {
 		OntologyIndividual data = EntityReflectionParser.getOntologyData(t);
-		Long id = data.getId();
+		Object id = data.getId();
 		deleteIndividual(t.getClass(), id);
 		addIndividual(t);
 	}
@@ -164,7 +168,7 @@ public class JenaAccessManager implements OntologyAccessManager {
 	}
 
 	@Override
-	public <T> T getIndividual(Class<T> cls, Long id) {
+	public <T,V> T getIndividual(Class<T> cls, V id) {
 		List<T> individuals = getIndividuals(cls);
 		Field field = getField(cls, "id");
 		field.setAccessible(true);

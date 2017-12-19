@@ -4,19 +4,22 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public class OntologyRepository<T> {
+public class OntologyRepository<T, V> {
 	private Class<T> persistentClass;
+	private Class<V> identifierClass;
 	private OntologyAccessManager accsessManager;
 
 	public OntologyRepository() {
 
 		this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
+		this.identifierClass = (Class<V>) ((ParameterizedType) getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[1];
 		accsessManager = OntologyAccessManagerFactory.getInstance();
 	}
 
-	public T findByIdentifier(Long i) {
-		return accsessManager.getIndividual(persistentClass, i);
+	public T findByIdentifier(V id) {
+		return accsessManager.getIndividual(persistentClass, id);
 	}
 
 	public List<T> findAll() {
@@ -31,7 +34,7 @@ public class OntologyRepository<T> {
 		accsessManager.updateIndividual(t);
 	}
 
-	public void delete(Long id) {
+	public void delete(V id) {
 		accsessManager.deleteIndividual(persistentClass, id);
 	}
 }

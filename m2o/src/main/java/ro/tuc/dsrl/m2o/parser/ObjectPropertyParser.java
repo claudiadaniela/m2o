@@ -49,7 +49,7 @@ public class ObjectPropertyParser {
 					if (fkFieldValue != null && ID.equals(field.getName())) {
 						return new ObjectPropertyValue(objectProperty,
 								new OntologyIndividual.RangeData(name,
-										(Long) fkFieldValue));
+										 fkFieldValue));
 
 					}
 				} catch (IllegalArgumentException e) {

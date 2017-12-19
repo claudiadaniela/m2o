@@ -17,11 +17,11 @@ import java.util.Map.Entry;
  */
 public class OntologyIndividual implements OntologyModel {
 	private String className;
-	private Long id;
+	private Object id;
 	private Map<String, Object> params;
 	private Map<String, List<RangeData>> foreignKeys;
 
-	public OntologyIndividual(String className, Long id) {
+	public OntologyIndividual(String className, Object id) {
 		this.className = className;
 		this.id = id;
 		this.params = new HashMap<String, Object>();
@@ -36,7 +36,8 @@ public class OntologyIndividual implements OntologyModel {
 		if (!data.isId()) {
 			params.put(data.getField(), data.getValue());
 		} else {
-			this.setId((Long) data.getValue());
+
+			id = data.getValue();
 		}
 
 	}
@@ -69,11 +70,11 @@ public class OntologyIndividual implements OntologyModel {
 		return className;
 	}
 
-	public Long getId() {
+	public Object getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Object id) {
 		this.id = id;
 	}
 
@@ -112,9 +113,9 @@ public class OntologyIndividual implements OntologyModel {
 
 	public static class RangeData {
 		private String className;
-		private Long id;
+		private Object id;
 
-		public RangeData(String className, Long id) {
+		public RangeData(String className, Object id) {
 			this.className = className;
 			this.id = id;
 		}
@@ -127,11 +128,11 @@ public class OntologyIndividual implements OntologyModel {
 			this.className = className;
 		}
 
-		public Long getId() {
+		public Object getId() {
 			return id;
 		}
 
-		public void setId(Long id) {
+		public void setId(Object id) {
 			this.id = id;
 		}
 	}

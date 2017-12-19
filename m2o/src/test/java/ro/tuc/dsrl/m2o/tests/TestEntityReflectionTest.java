@@ -43,7 +43,7 @@ public class TestEntityReflectionTest {
 
 		OntologyIndividual data = EntityReflectionParser.getOntologyData(entity);
 		System.out.println(data);
-		assertTrue(" id", entity.getId() == (long) data.getId());
+		assertTrue(" id", entity.getId().equals(data.getId()));
 		assertEquals(" class", TEST_ENTITY, data.getClassName());
 		assertEquals("Field name", true, data.getParams().containsKey(NAME));
 		assertEquals("Field age", true, data.getParams().containsKey(AGE));

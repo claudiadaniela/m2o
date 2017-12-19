@@ -10,7 +10,7 @@ public interface OntologyAccessManager {
 
 	<T> List<T> getIndividuals(Class<T> cls);
 
-	<T> T getIndividual(Class<T> cls, Long id);
+	<T,V> T getIndividual(Class<T> cls, V  id);
 	
-	public <T> void deleteIndividual(Class<T> cls, Long id);
+	public <T,V> void deleteIndividual(Class<T> cls, V id);
 }

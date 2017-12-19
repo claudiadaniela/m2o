@@ -59,12 +59,6 @@ public class AnnotationParser {
 		for (Annotation annotation : field.getDeclaredAnnotations()) {
 			Class<? extends Annotation> type = annotation.annotationType();
 			if (instanceId.equals(type.getSimpleName())) {
-
-				if (!(value.isAssignableFrom(Long.class) || value
-						.equals(Long.TYPE))) {
-					LOGGER.info("The instance id should be of type Long");
-					return false;
-				}
 				return true;
 			}
 		}

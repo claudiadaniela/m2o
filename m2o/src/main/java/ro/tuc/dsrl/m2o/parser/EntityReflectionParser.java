@@ -26,7 +26,7 @@ public class EntityReflectionParser {
 		}
 		Class<?> clazz = o.getClass();
 		String name = clazz.getSimpleName();
-		OntologyIndividual data = new OntologyIndividual(name, (long) 0);
+		OntologyIndividual data = new OntologyIndividual(name, null);
 		while (clazz != null) {
 			for (Field field : clazz.getDeclaredFields()) {
 				field.setAccessible(true);
