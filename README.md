@@ -1,4 +1,4 @@
-# m2o
+# m2o [![DOI](https://zenodo.org/badge/114090358.svg)](https://zenodo.org/badge/latestdoi/114090358)
 
 M2O is an extensible framework over Jena and OWL API that maps complex Java data models onto semantic models based on some custom annotations in order to benefit from the advantages of ontologies in software engineering. Furthermore, it facilitates the implementation of basic CRUD operations for the domain classes and objects, also allowing the definition of new custom operations. 
 A more formal description of the framework can be found at http://ieeexplore.ieee.org/document/7312608/
