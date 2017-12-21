@@ -5,9 +5,17 @@ A more formal description of the framework can be found at http://ieeexplore.iee
 
 ## Using M2O
 
-### M2O configuration
+### M2O Configuration
 
-### Java Class Annotations
+The setup of this library is done via a configuration file (ont-config.config).  The following parameters need to be setup in order to ensure the correct functionality of the library:
+
+* ONT_FILE= path to the owl file. The ontology file needs to be specified. If the ontology already exists, it will be loaded from this path; otherwise a file will be created containing an ontology corresponding to the Java model - 
+* ONT_URI = ontology URI .The identifier of the Ontology (Uniform Resource Identifier) 
+* API_TYPE=JENA or OWLAPI. Based on the user preferences, the API needs to be specified in this file. The API’s that are available so far are : JENA and OWL API
+* ENTITIES_PACKAGE=ro.tuc.dsrl.m2o.example.entities. The user must specify the package that contains the classes that are going to be mapped to the ontology
+* AUTO_GEN=true or false. According to this flag, an ontology will be created based on the entities from the specified package. Otherwise the specified ontology will be loaded from the file.
+
+### Java Model Annotations
 
 Annotated the Java classes that you want to map to the ontology classes. There are four types of annotations used for entity mapping:
 @OntologyEntity - It is a class annotation that will be used for every class that needs to be mapped to the ontology. 
@@ -44,6 +52,8 @@ public class Wine extends PortableLiquid {
     //contructor
     //getters / setters
 ```
+
+### Java Repositories
 
 Then create the repository classes by extending the OntologyRepository class. The first generic type specifies the entity that the repo is linked to, and the second type specifies the type of individual identifier.
 
