@@ -74,7 +74,7 @@ Now, by using an instance of the repository class, one can easily have access to
 
 * Claudia Pop ;  Dorin Moldovan ;  Marcel Antal ;  Dan Valea ;  Tudor Cioara ;  Ionut Anghel ;  Ioan Salomie
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/claudiadaniela/m2o/graphs/contributors) who participated in this project.
 
 ## License
 
