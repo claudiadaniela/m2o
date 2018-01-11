@@ -14,14 +14,8 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * 
- * @Author: Technical University of Cluj-Napoca, Romania Distributed Systems
- *          Research Laboratory, http://dsrl.coned.utcluj.ro/
- * @Project: FP7 GEYSER Project, http://www.geyser-project.eu/
- * @Module: data-model-api
- * @Since: Dec 17, 2014
- * @Description:
- *
+ * @Source: CRISTAL
+ * https://github.com/isa-group/cristal
  */
 public class DLQueryParser {
 
