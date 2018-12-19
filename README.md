@@ -78,5 +78,5 @@ See also the list of [contributors](https://github.com/claudiadaniela/m2o/graphs
 
 ## License
 
-This project is licensed under the GNL License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the GPL License - see the [LICENSE](LICENSE) file for details
 
